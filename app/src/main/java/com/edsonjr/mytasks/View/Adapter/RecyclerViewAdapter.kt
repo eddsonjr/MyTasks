@@ -36,7 +36,6 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
             if(item.hour.isNullOrEmpty()) task_hour.text = "" else task_hour.text = item.hour
 
 
-
             //acao de click na celula da recyclerview
             itemView.setOnClickListener {
                 clickListener(item)
