@@ -11,7 +11,6 @@ import com.edsonjr.mytasks.Model.Task
 @Database(entities = [Task::class],version = 1)
 abstract  class TasksDatabase: RoomDatabase() {
 
-
     abstract val TaskDAO: TaskDAO
 
     companion object {
