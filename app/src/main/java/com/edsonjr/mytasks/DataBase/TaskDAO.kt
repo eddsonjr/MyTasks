@@ -20,7 +20,7 @@ interface TaskDAO {
 
     @Query("DELETE FROM task_table")
     suspend fun deleteAll()
-    
+
 
     @Query("SELECT * FROM task_table")
     fun getAllTasks(): LiveData<List<Task>>
