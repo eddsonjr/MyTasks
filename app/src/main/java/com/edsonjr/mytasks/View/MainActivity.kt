@@ -1,7 +1,8 @@
-package com.edsonjr.mytasks
+package com.edsonjr.mytasks.View
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.edsonjr.mytasks.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
