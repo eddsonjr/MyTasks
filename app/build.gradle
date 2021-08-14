@@ -36,6 +36,14 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+
 }
 
 dependencies {
@@ -71,8 +79,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
 
-    //Roboletric para unity tests
-    testImplementation 'org.robolectric:robolectric:4.4'
+    //Roboletric e testeCore para unity tests
+    testImplementation "org.robolectric:robolectric:4.6.1"
+    testImplementation "androix.test:core:1.3.0"
 
 
 }
