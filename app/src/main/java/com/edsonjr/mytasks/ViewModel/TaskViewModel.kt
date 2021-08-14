@@ -1,5 +1,6 @@
 package com.edsonjr.mytasks.ViewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edsonjr.mytasks.Model.Task
@@ -9,7 +10,11 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel(private val repository: TaskRepository):ViewModel() {
 
-    val tasks = repository.tasks //lista de tasks vinda do repositorio (vindas do banco)
+
+    //retorna todos os elementos do banco de dados
+    fun listAllTasks(): LiveData<List<Task>>{
+        return repository.tasks
+    }
 
 
     //metodo para inserir novas tasks no banco

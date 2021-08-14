@@ -62,7 +62,7 @@ class ViewModelTests {
 
     @Test
     fun listTasks_unitTest(){
-        val taskListFromBD = viewModel.tasks.value?.size
+        val taskListFromBD = viewModel.listAllTasks().value?.size
         assertEquals(NUMBER_OF_DATA_TO_GET,0)
     }
 
