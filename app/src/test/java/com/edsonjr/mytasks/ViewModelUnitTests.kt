@@ -1,9 +1,20 @@
 package com.edsonjr.mytasks
 
+
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
+import androidx.test.core.app.ApplicationProvider
+import com.edsonjr.mytasks.DataBase.TasksDatabase
+import com.edsonjr.mytasks.Repository.TaskRepository
+import com.edsonjr.mytasks.ViewModel.TaskViewModel
+import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
+import org.robolectric.RuntimeEnvironment.application
+
 
 /*
 *   Classe para realizar testes no view Model
@@ -11,8 +22,15 @@ import org.robolectric.annotation.Config
 */
 
 
-
+@RunWith(RobolectricTestRunner::class)
 class ViewModelTests {
+
+
+    //necessario apra a configuracao do viewModel, factory, dao
+    private val DAO = TasksDatabase.getDBInstance(application).TaskDAO
+    private val repository = TaskRepository(DAO)
+    private val viewModel = TaskViewModel(repository)
+
 
     @Test
     fun insertTask_unitTest() {
