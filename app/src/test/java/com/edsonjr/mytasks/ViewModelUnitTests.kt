@@ -10,9 +10,11 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import androidx.test.core.app.ApplicationProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
+import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.Repository.TaskRepository
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
+import junit.framework.Assert.assertEquals
 import org.robolectric.RuntimeEnvironment.application
 
 
@@ -20,6 +22,8 @@ import org.robolectric.RuntimeEnvironment.application
 *   Classe para realizar testes no view Model
 *
 */
+
+const val NUMBER_OF_DATA_TO_GET = 0 //numero de dados a serem adquiridos
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -30,6 +34,12 @@ class ViewModelTests {
     private val DAO = TasksDatabase.getDBInstance(application).TaskDAO
     private val repository = TaskRepository(DAO)
     private val viewModel = TaskViewModel(repository)
+
+    //Objetos do tipo task para testar o vm
+    private val task1 = Task(1,"Test1","desc1","00/00/0000","00:00",true,false)
+    private val task2 = Task(1,"Test2","desc2","11/11/1111","11:11",true,false)
+
+
 
 
     @Test
@@ -52,7 +62,8 @@ class ViewModelTests {
 
     @Test
     fun listTasks_unitTest(){
-        //TODO - CRIAR UM TESTE PARA LISTAR TODAS AS TASKS DO BANCO DE DADOS USANDO VM
+        val taskListFromBD = viewModel.tasks.value?.size
+        assertEquals(NUMBER_OF_DATA_TO_GET,0)
     }
 
     @Test

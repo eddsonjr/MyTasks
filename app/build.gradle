@@ -37,13 +37,6 @@ android {
         dataBinding true
     }
 
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
-
-
 }
 
 dependencies {
@@ -81,7 +74,7 @@ dependencies {
 
     //Roboletric e testeCore para unity tests
     testImplementation "org.robolectric:robolectric:4.6.1"
-    testImplementation "androix.test:core:1.3.0"
+    testImplementation "androidx.test:core:1.3.0"
 
 
 }
