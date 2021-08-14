@@ -23,7 +23,7 @@ import org.robolectric.RuntimeEnvironment.application
 *
 */
 
-const val NUMBER_OF_DATA_TO_GET = 0 //numero de dados a serem adquiridos
+const val NUMBER_OF_DATA_TO_GET = 1 //numero de dados a serem adquiridos
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -40,11 +40,17 @@ class ViewModelTests {
     private val task2 = Task(1,"Test2","desc2","11/11/1111","11:11",true,false)
 
 
+    //funcao que serve para retornar a lista de tasks do banco de dados
+    private fun getDataFromBD(): List<Task>?{
+        return viewModel.listAllTasks().value
+    }
 
 
     @Test
     fun insertTask_unitTest() {
-        //TODO - CRIAR TESTE PARA INSERIR UMA TASK NO BANCO DE DADOS USANDO VM
+        viewModel.insertTask(task1)
+        assertEquals(NUMBER_OF_DATA_TO_GET,getDataFromBD()?.size)
+
     }
 
 
@@ -62,13 +68,15 @@ class ViewModelTests {
 
     @Test
     fun listTasks_unitTest(){
-        val taskListFromBD = viewModel.listAllTasks().value?.size
-        assertEquals(NUMBER_OF_DATA_TO_GET,0)
+        val taskListFromBD = this.getDataFromBD()
+        assertEquals(NUMBER_OF_DATA_TO_GET,taskListFromBD?.size)
     }
 
     @Test
     fun deleteAllTasks_unitTest() {
         //TODO - CRIAR UM TESTE PARA REMOVER TODAS AS TASKS DO BANCO DE DADOS USANDO VM
     }
+
+
 
 }
