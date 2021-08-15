@@ -20,18 +20,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initViewModel()
         startTaskListFragment()
     }
 
 
-    //metodo responsavel por inicializar o viewModel
-    private fun initViewModel(){
-        val dao = TasksDatabase.getDBInstance(application).TaskDAO //adquirindo o dao
-        val repository = TaskRepository(dao) //instanciando o repositorio que sera usado no factory
-        val factory = TaskViewModelFactory(repository)  //iniciando o viewmodel factory
-        this.taskViewModel = ViewModelProvider(this,factory).get(TaskViewModel::class.java)
-    }
+
 
 
     //este metodo e responsavel por carregar o primeiro fragment, que mostra uma lista de
