@@ -42,7 +42,7 @@ class ViewModelTests {
 
     //funcao que serve para retornar a lista de tasks do banco de dados
     private fun getDataFromBD(): List<Task>?{
-        return viewModel.listAllTasks().value
+        return viewModel.taskList.value
     }
 
 

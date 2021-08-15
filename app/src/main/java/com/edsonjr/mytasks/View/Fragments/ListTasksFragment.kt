@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
+import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.Repository.TaskRepository
 import com.edsonjr.mytasks.View.MainActivity
@@ -19,6 +21,7 @@ class ListTasksFragment : Fragment() {
 
     private var viewModel: TaskViewModel? = null
     private val TAG = "[ListTaskFragment]"
+    private var taskList: List<Task>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,7 @@ class ListTasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        taskListVMObserver()
     }
 
 
@@ -50,6 +54,17 @@ class ListTasksFragment : Fragment() {
         Log.d(TAG,"Inicializado o TaskViewModel: ${this.viewModel}")
     }
 
+
+
+    //este metodo e responsavel por configurar o observer do viewmodel
+    private fun taskListVMObserver(){
+        viewModel?.taskList?.observe(viewLifecycleOwner, Observer { tasks ->
+            Log.d(TAG,"Numero de tasks do banco: ${tasks.size}")
+            this.taskList = tasks
+        })
+
+
+    }
 
 
 }

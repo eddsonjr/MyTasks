@@ -36,6 +36,8 @@ class SaverUpdateTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+
+
     }
 
 
@@ -47,7 +49,7 @@ class SaverUpdateTaskFragment : Fragment() {
         val repository = TaskRepository(dao) //instanciando o repositorio que sera usado no factory
         val factory = TaskViewModelFactory(repository)  //iniciando o viewmodel factory
         this.viewModel = ViewModelProvider(requireActivity(),factory).get(TaskViewModel::class.java)
-
         Log.d(TAG,"Inicializado o TaskViewModel: ${this.viewModel}")
     }
+
 }

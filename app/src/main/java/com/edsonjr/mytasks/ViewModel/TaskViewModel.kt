@@ -1,6 +1,7 @@
 package com.edsonjr.mytasks.ViewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.edsonjr.mytasks.Model.Task
@@ -10,11 +11,10 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel(private val repository: TaskRepository):ViewModel() {
 
+    var taskList = MutableLiveData<List<Task>>()
 
-    //retorna todos os elementos do banco de dados
-    fun listAllTasks(): LiveData<List<Task>>{
-        return repository.tasks
-    }
+
+
 
 
     //metodo para inserir novas tasks no banco
