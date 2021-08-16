@@ -33,14 +33,18 @@ class ListTasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        initViewModel()
+        taskListVMObserver()
+        testSaveTask()
         return inflater.inflate(R.layout.fragment_list_tasks, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
-        taskListVMObserver()
+
+
     }
 
 
@@ -63,8 +67,16 @@ class ListTasksFragment : Fragment() {
             this.taskList = tasks
         })
 
+    }
+
+
+    //somente para testes
+    private fun testSaveTask() {
+        this.viewModel?.insertTask(Task(1,"TEST","DESC",null,null,false,false))
 
     }
+
+
 
 
 }
