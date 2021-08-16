@@ -11,10 +11,7 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel(private val repository: TaskRepository):ViewModel() {
 
-    var taskList = MutableLiveData<List<Task>>()
-
-
-
+    var taskList = repository.tasks
 
 
     //metodo para inserir novas tasks no banco

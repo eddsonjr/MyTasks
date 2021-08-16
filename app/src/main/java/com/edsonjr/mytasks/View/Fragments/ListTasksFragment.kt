@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
@@ -19,9 +21,11 @@ import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
 
 class ListTasksFragment : Fragment() {
 
-    private var viewModel: TaskViewModel? = null
     private val TAG = "[ListTaskFragment]"
     private var taskList: List<Task>? = null
+    private val viewModel: TaskViewModel by activityViewModels()
+
+    private lateinit var textView :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,31 +37,19 @@ class ListTasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val layout =  inflater.inflate(R.layout.fragment_list_tasks, container, false)
+        this.textView = layout.findViewById(R.id.fragTXT)
 
-        initViewModel()
-        taskListVMObserver()
-        testSaveTask()
-        return inflater.inflate(R.layout.fragment_list_tasks, container, false)
+
+        return layout
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        taskListVMObserver()
 
     }
-
-
-    //metodo responsavel por inicializar o viewModel
-    private fun initViewModel(){
-        val dao = TasksDatabase.getDBInstance(requireActivity()).TaskDAO //adquirindo o dao
-        val repository = TaskRepository(dao) //instanciando o repositorio que sera usado no factory
-        val factory = TaskViewModelFactory(repository)  //iniciando o viewmodel factory
-        this.viewModel = ViewModelProvider(requireActivity(),factory).get(TaskViewModel::class.java)
-
-        Log.d(TAG,"Inicializado o TaskViewModel: ${this.viewModel}")
-    }
-
 
 
     //este metodo e responsavel por configurar o observer do viewmodel
@@ -65,18 +57,9 @@ class ListTasksFragment : Fragment() {
         viewModel?.taskList?.observe(viewLifecycleOwner, Observer { tasks ->
             Log.d(TAG,"Numero de tasks do banco: ${tasks.size}")
             this.taskList = tasks
+            this.textView.text = tasks.toString()
         })
 
     }
-
-
-    //somente para testes
-    private fun testSaveTask() {
-        this.viewModel?.insertTask(Task(1,"TEST","DESC",null,null,false,false))
-
-    }
-
-
-
 
 }

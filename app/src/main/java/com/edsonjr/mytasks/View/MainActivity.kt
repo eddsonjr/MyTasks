@@ -3,6 +3,7 @@ package com.edsonjr.mytasks.View
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
 import com.edsonjr.mytasks.Model.Task
@@ -15,11 +16,14 @@ import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "[MainActivity]"
+    private var viewModel: TaskViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        initViewModel()
         startTaskListFragment()
 
     }
@@ -33,5 +37,22 @@ class MainActivity : AppCompatActivity() {
         fragment.commit()
     }
 
+
+
+    //metodo responsavel por inicializar o viewModel
+    private fun initViewModel(){
+        val dao = TasksDatabase.getDBInstance(this).TaskDAO //adquirindo o dao
+        val repository = TaskRepository(dao) //instanciando o repositorio que sera usado no factory
+        val factory = TaskViewModelFactory(repository)  //iniciando o viewmodel factory
+        viewModel = ViewModelProvider(this,factory).get(TaskViewModel::class.java)
+        Log.d(TAG,"Inicializado o TaskViewModel: ${this.viewModel}")
+    }
+
+
+    //somente para testes
+    private fun testSaveTask() {
+        this.viewModel?.insertTask(Task(1,"TEST","DESC",null,null,false,false))
+
+    }
 
 }
