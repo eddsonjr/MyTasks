@@ -25,7 +25,6 @@ class ListTasksFragment : Fragment() {
     private var taskList: List<Task>? = null
     private val viewModel: TaskViewModel by activityViewModels()
 
-    private lateinit var textView :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,6 @@ class ListTasksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val layout =  inflater.inflate(R.layout.fragment_list_tasks, container, false)
-        this.textView = layout.findViewById(R.id.fragTXT)
 
 
         return layout
@@ -57,7 +55,6 @@ class ListTasksFragment : Fragment() {
         viewModel?.taskList?.observe(viewLifecycleOwner, Observer { tasks ->
             Log.d(TAG,"Numero de tasks do banco: ${tasks.size}")
             this.taskList = tasks
-            this.textView.text = tasks.toString()
         })
 
     }
