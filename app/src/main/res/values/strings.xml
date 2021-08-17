@@ -12,6 +12,7 @@
     <string name="btn_create_newTask">Criar tarefa</string>
     <string name="btn_update_task">Atualizar Tarefa</string>
     <string name="btn_cancel">Cancelar</string>
+    <string name="switch_important">Tarefa importante (opcional)</string>
 
 
 </resources>
