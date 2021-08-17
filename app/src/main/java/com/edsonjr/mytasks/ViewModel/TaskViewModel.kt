@@ -13,7 +13,6 @@ class TaskViewModel(private val repository: TaskRepository):ViewModel() {
 
     var taskList = repository.tasks
 
-
     //metodo para inserir novas tasks no banco
     fun insertTask(task: Task): Job = viewModelScope.launch {
         repository.insert(task)
