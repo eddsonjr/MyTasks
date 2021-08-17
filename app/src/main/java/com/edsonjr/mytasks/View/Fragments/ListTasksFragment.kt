@@ -2,12 +2,11 @@ package com.edsonjr.mytasks.View.Fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +19,6 @@ import com.edsonjr.mytasks.View.Adapter.RecyclerViewAdapter
 import com.edsonjr.mytasks.View.MainActivity
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 
 
 class ListTasksFragment : Fragment() {
@@ -69,8 +66,19 @@ class ListTasksFragment : Fragment() {
     private fun initRecyclerView(view: View,tasks: List<Task>) {
         recyclerView = view.findViewById(R.id.taskListRecyclerview) as RecyclerView
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
-        recyclerView!!.adapter = RecyclerViewAdapter(tasks)
+        recyclerView!!.adapter = RecyclerViewAdapter(tasks,
+            {selectedItem:Task->itemClickListener(selectedItem)})
 
+    }
+
+
+    //metodo que ira executar o evento de click da celula da recycleview
+    private fun itemClickListener(task: Task){
+        activity?.supportFragmentManager?.commit {
+            replace<SaverUpdateTaskFragment>(R.id.fragmentContainer)
+            setReorderingAllowed(true)
+            addToBackStack("name")
+        }
     }
 
 }
