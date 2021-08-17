@@ -45,6 +45,6 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
 
     //evento de click da celula da recyclerview
     override fun updateTaskClickListener(task: Task) {
-        TODO("Not yet implemented")
+
     }
 }
