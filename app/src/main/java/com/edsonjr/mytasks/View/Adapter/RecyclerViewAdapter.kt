@@ -15,10 +15,10 @@ import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 
-class RecyclerViewAdapter(private val taskList: List<Task>):
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(),TaskItemRecyclerClickListener {
+class RecyclerViewAdapter(private val taskList: List<Task>,private val clickListener:(Task)->Unit):
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    private val view: View? = null
+
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
@@ -27,13 +27,20 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
         var task_date = view.findViewById<TextView>(R.id.txt_dateTask_item_recycler)
         var task_hour = view.findViewById<TextView>(R.id.txt_taskHour_item_recycler)
 
-        fun bind(item: Task){
+        fun bind(item: Task,clickListener:(Task)->Unit){
 
             this.task_title.text = item.title
 
             if(item.important) important_txt.visibility = View.VISIBLE else View.GONE
             if(item.date.isNullOrEmpty()) task_date.text = ""  else task_date.text = item.date
             if(item.hour.isNullOrEmpty()) task_hour.text = "" else task_hour.text = item.hour
+
+
+
+            //acao de click na celula da recyclerview
+            itemView.setOnClickListener {
+                clickListener(item)
+            }
         }
     }
 
@@ -44,25 +51,23 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(taskList.get(position))
-        holder.itemView.setOnClickListener {
+        holder.bind(taskList.get(position),clickListener)
 
-        }
     }
 
     override fun getItemCount() = taskList.size
 
 
-    //evento de click da celula da recyclerview
-    override fun updateTaskClickListener(task: Task) {
-
-        //preparando os dados
-        val fragment = SaverUpdateTaskFragment()
-        val args = Bundle()
-        args.putSerializable("taskToUpdate",task)
-        fragment.arguments = args
-
-
-
-    }
+//    //evento de click da celula da recyclerview
+//    override fun updateTaskClickListener(task: Task) {
+//
+//        //preparando os dados
+//        val fragment = SaverUpdateTaskFragment()
+//        val args = Bundle()
+//        args.putSerializable("taskToUpdate",task)
+//        fragment.arguments = args
+//
+//
+//
+//    }
 }
