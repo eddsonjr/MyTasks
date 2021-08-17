@@ -20,6 +20,8 @@ import com.edsonjr.mytasks.View.Adapter.RecyclerViewAdapter
 import com.edsonjr.mytasks.View.MainActivity
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
 
 class ListTasksFragment : Fragment() {
@@ -41,6 +43,7 @@ class ListTasksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list_tasks, container, false)
+
         return view
     }
 

@@ -1,17 +1,24 @@
 package com.edsonjr.mytasks.View.Adapter
 
+import android.app.Activity
+import android.content.Context
 import android.opengl.Visibility
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
+import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 
 class RecyclerViewAdapter(private val taskList: List<Task>):
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(),TaskItemRecyclerClickListener {
 
+    private val view: View? = null
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
@@ -38,6 +45,9 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(taskList.get(position))
+        holder.itemView.setOnClickListener {
+
+        }
     }
 
     override fun getItemCount() = taskList.size
@@ -45,6 +55,14 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
 
     //evento de click da celula da recyclerview
     override fun updateTaskClickListener(task: Task) {
+
+        //preparando os dados
+        val fragment = SaverUpdateTaskFragment()
+        val args = Bundle()
+        args.putSerializable("taskToUpdate",task)
+        fragment.arguments = args
+
+
 
     }
 }
