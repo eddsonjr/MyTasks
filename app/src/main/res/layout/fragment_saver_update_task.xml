@@ -157,7 +157,6 @@
         app:layout_constraintTop_toBottomOf="@id/txt_date_task"
         android:layout_marginTop="16dp" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
