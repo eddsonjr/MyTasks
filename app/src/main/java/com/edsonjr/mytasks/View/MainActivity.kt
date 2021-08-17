@@ -10,6 +10,7 @@ import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.Repository.TaskRepository
 import com.edsonjr.mytasks.View.Fragments.ListTasksFragment
+import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
 
@@ -53,6 +54,15 @@ class MainActivity : AppCompatActivity() {
     private fun testSaveTask() {
         this.viewModel?.insertTask(Task(1,"TEST","DESC",null,null,false,false))
 
+    }
+
+
+    //somente para testes
+    private fun testLoadFragmentSaveUpdateTask() {
+        val saveUpdateFragment = SaverUpdateTaskFragment()
+        val fragment = supportFragmentManager.beginTransaction()
+        fragment.replace(R.id.fragmentContainer,saveUpdateFragment)
+        fragment.commit()
     }
 
 }
