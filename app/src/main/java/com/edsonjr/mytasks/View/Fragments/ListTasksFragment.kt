@@ -70,7 +70,7 @@ class ListTasksFragment : Fragment() {
     private fun itemClickListener(task: Task){
 
         val fragmentManager = activity?.supportFragmentManager
-        fragmentManager?.setFragmentResult("task_update", bundleOf("saveUpdateFragment" to task))
+        fragmentManager?.setFragmentResult("task_update", bundleOf("taskToUpdate" to task))
 
         fragmentManager?.commit {
             replace<SaverUpdateTaskFragment>(R.id.fragmentContainer)

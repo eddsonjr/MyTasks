@@ -58,16 +58,4 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
     override fun getItemCount() = taskList.size
 
 
-//    //evento de click da celula da recyclerview
-//    override fun updateTaskClickListener(task: Task) {
-//
-//        //preparando os dados
-//        val fragment = SaverUpdateTaskFragment()
-//        val args = Bundle()
-//        args.putSerializable("taskToUpdate",task)
-//        fragment.arguments = args
-//
-//
-//
-//    }
 }

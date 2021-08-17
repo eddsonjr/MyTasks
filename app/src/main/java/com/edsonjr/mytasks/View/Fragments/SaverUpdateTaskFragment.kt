@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
 import com.edsonjr.mytasks.R
@@ -17,7 +18,7 @@ import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
 class SaverUpdateTaskFragment : Fragment() {
 
     private var viewModel: TaskViewModel? = null
-    private val TAG = "[ListTaskFragment]"
+    private val TAG = "[SaveUpdateFrag]"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,13 @@ class SaverUpdateTaskFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        setFragmentResultListener("task_update"){ key, result ->
+            val task = result.getSerializable("taskToUpdate")
+            Log.d(TAG,"Task recebida: ${task.toString()}")
+        }
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_saver_update_task, container, false)
     }
