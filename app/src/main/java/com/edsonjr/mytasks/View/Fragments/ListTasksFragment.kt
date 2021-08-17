@@ -16,6 +16,7 @@ import com.edsonjr.mytasks.DataBase.TasksDatabase
 import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.Repository.TaskRepository
+import com.edsonjr.mytasks.View.Adapter.RecyclerViewAdapter
 import com.edsonjr.mytasks.View.MainActivity
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
@@ -40,9 +41,6 @@ class ListTasksFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list_tasks, container, false)
-
-
-
         return view
     }
 
@@ -50,24 +48,25 @@ class ListTasksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        taskListVMObserver()
+        taskListVMObserver(view)
 
     }
 
 
     //este metodo e responsavel por configurar o observer do viewmodel
-    private fun taskListVMObserver(){
+    private fun taskListVMObserver(view: View){
         viewModel?.taskList?.observe(viewLifecycleOwner, Observer { tasks ->
             Log.d(TAG,"Numero de tasks do banco: ${tasks.size}")
-            this.taskList = tasks
+            initRecyclerView(view,tasks)
         })
     }
 
 
     //este metodo e resposnavel por inicializar a recyclerview
-    private fun initRecyclerView(view: View) {
+    private fun initRecyclerView(view: View,tasks: List<Task>) {
         recyclerView = view.findViewById(R.id.taskListRecyclerview) as RecyclerView
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
+        recyclerView!!.adapter = RecyclerViewAdapter(tasks)
 
     }
 

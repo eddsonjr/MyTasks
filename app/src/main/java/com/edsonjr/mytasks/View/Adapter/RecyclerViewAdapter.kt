@@ -24,9 +24,9 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
 
             this.task_title.text = item.title
 
-            if(item.important) this.important_txt.visibility = View.VISIBLE else View.GONE
-            if(item.date.isNullOrEmpty()) task_date.visibility = View.GONE else task_date.text = item.date
-            if(item.hour.isNullOrEmpty()) task_hour.visibility = View.GONE else task_hour.text = item.hour
+            if(item.important) important_txt.visibility = View.VISIBLE else View.GONE
+            if(item.date.isNullOrEmpty()) task_date.text = ""  else task_date.text = item.date
+            if(item.hour.isNullOrEmpty()) task_hour.text = "" else task_hour.text = item.hour
         }
     }
 
