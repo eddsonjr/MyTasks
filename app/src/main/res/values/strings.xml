@@ -2,4 +2,16 @@
     <string name="app_name">MyTasks</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--strings da tela de adicionar/update de tasks-->
+    <string name="hint_title_add_task">Adicione a task</string>
+    <string name="hint_date_add_task">Data (opcional)</string>
+    <string name="hint_description_task">Insira uma descrição para a task (opcional)</string>
+    <string name="hint_hour_task">Hora (Opcional)</string>
+    <string name="btn_create_newTask">Criar tarefa</string>
+    <string name="btn_update_task">Atualizar Tarefa</string>
+    <string name="btn_cancel">Cancelar</string>
+
+
 </resources>
