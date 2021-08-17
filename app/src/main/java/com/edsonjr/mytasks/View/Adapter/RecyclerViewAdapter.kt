@@ -10,7 +10,7 @@ import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 
 class RecyclerViewAdapter(private val taskList: List<Task>):
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(),TaskItemRecyclerClickListener {
 
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -41,4 +41,10 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
     }
 
     override fun getItemCount() = taskList.size
+
+
+    //evento de click da celula da recyclerview
+    override fun updateTaskClickListener(task: Task) {
+        TODO("Not yet implemented")
+    }
 }
