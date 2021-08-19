@@ -102,7 +102,7 @@ class SaverUpdateTaskFragment : Fragment() {
 
         //caso o usuario click
         binding.btnCancelar.setOnClickListener {
-            loadFragment()
+            backToListTaskFragment()
 
         }
 
@@ -111,13 +111,9 @@ class SaverUpdateTaskFragment : Fragment() {
 
 
     //metodo para carregar o fragment
-    private fun loadFragment() {
+    private fun backToListTaskFragment() {
         val fragmentManager = activity?.supportFragmentManager
-        fragmentManager?.commit {
-            replace<ListTasksFragment>(R.id.fragmentContainer)
-            setReorderingAllowed(false)
-            addToBackStack(null)
-        }
+        fragmentManager?.popBackStack()
     }
 
 
