@@ -2,12 +2,10 @@ package com.edsonjr.mytasks.View.Fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
 import com.edsonjr.mytasks.Model.Task
@@ -27,6 +25,8 @@ class SaverUpdateTaskFragment : Fragment() {
     private var _binding: FragmentSaverUpdateTaskBinding? = null
     private val binding get() = _binding!!
 
+    private var isUpdatingTask: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +44,18 @@ class SaverUpdateTaskFragment : Fragment() {
         val view = binding.root
 
 
+        //configurando os eventos de click
+        configureSaveUpdateButtons()
+
+
         //listener do fragment manager, responsavel por verificar se o usuario selecionou
         //uma task no fragment de listagem e carregar os dados na ui, permitindo update da task
         setFragmentResultListener("task_update"){ key, result ->
             val task = result.getSerializable("taskToUpdate")
             Log.d(TAG,"Task recebida: ${task.toString()}")
             configUIToUpdateTask(task as Task)
+            this.isUpdatingTask = true
+
         }
 
         return view
@@ -68,18 +74,59 @@ class SaverUpdateTaskFragment : Fragment() {
         //alterando os elementos visuais para comportar as informacoes das tasks
         binding.btnCriarTarefa.setText(getString(R.string.btn_update_task)) //altera o texto do btn
 
-        binding.txtTaskTitle.editText?.setText(task.title)
+        binding.txtTaskTitle.editText?.setText(task.title) //configurando o titulo da task
 
+        //configurando a descricao da task
+        if(task.description?.isNotEmpty() == true)
+            binding.txtTaskDescription.editText?.setText(task.description)
 
+        //configurando a data da task
+        if(task.date?.isNotEmpty() == true)
+            binding.txtDateTask.editText?.setText(task.date)
+
+        //configurando a hora da task
+        if(task.hour?.isNotEmpty() == true)
+            binding.txtHourTask.editText?.setText(task.hour)
+
+        //configurando se e importante ou nao
+        if(task.important)
+            binding.importanTaskSwitch.isChecked = true
 
     }
 
+
+
+    //metodo que serve para trabalhar com os eventos de click dos botoes de salvar/atualizar
+    //e cancelar
+    private fun configureSaveUpdateButtons() {
+
+        //caso o usuario click
+        binding.btnCancelar.setOnClickListener {
+            loadFragment()
+
+        }
+
+    }
+
+
+
+    //metodo para carregar o fragment
+    private fun loadFragment() {
+        val fragmentManager = activity?.supportFragmentManager
+        fragmentManager?.commit {
+            replace<ListTasksFragment>(R.id.fragmentContainer)
+            setReorderingAllowed(false)
+            addToBackStack(null)
+        }
+    }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 
 

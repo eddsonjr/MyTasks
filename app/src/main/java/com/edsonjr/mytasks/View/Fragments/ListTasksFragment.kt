@@ -74,7 +74,7 @@ class ListTasksFragment : Fragment() {
 
         fragmentManager?.commit {
             replace<SaverUpdateTaskFragment>(R.id.fragmentContainer)
-            setReorderingAllowed(true)
+            setReorderingAllowed(false)
             addToBackStack(null)
         }
     }

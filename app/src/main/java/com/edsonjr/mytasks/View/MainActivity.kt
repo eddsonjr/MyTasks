@@ -23,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         initViewModel()
         startTaskListFragment()
+        testSaveTask()
 
     }
 
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     //somente para testes
     private fun testSaveTask() {
-        this.viewModel?.insertTask(Task(1,"TEST","DESC",null,null,false,false))
+        this.viewModel?.insertTask(Task(9,"TASK COM TUDO","DESCRIPTION","22/22/22","12:45",true,false))
 
     }
 

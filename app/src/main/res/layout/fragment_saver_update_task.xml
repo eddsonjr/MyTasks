@@ -150,6 +150,7 @@
 
 
     <Switch
+        android:id="@+id/importan_task_switch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/switch_important"
