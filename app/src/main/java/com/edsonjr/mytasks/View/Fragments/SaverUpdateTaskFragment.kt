@@ -21,11 +21,10 @@ class SaverUpdateTaskFragment : Fragment() {
 
     private val viewModel: TaskViewModel by activityViewModels() //view model compartilhado
     private val TAG = "[SaveUpdateFrag]" //para fins de debug
-
     private var _binding: FragmentSaverUpdateTaskBinding? = null
     private val binding get() = _binding!!
+    private var isUpdatingTask: Boolean = false //serve para informar se ira salvar ou atualizar
 
-    private var isUpdatingTask: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,9 +99,14 @@ class SaverUpdateTaskFragment : Fragment() {
     //e cancelar
     private fun configureSaveUpdateButtons() {
 
-        //caso o usuario click
+        //caso o usuario click em cancelar, retornar para tela anterior
         binding.btnCancelar.setOnClickListener {
             backToListTaskFragment()
+        }
+
+
+        //caso o usuario click no botao de salvar (ou update), disparar acao de update ou save
+        binding.btnCriarTarefa.setOnClickListener {
 
         }
 
@@ -117,15 +121,27 @@ class SaverUpdateTaskFragment : Fragment() {
     }
 
 
+    //captura os dados dos componentes de UI e retorna um objeto do tipo Task, que pode ser
+    //atualizado ou adicionado
+    private fun captureUserInputAndReturnTask() {
+        var task: Task? = null
+        val title = binding.txtTaskTitle.editText?.text.toString()
+        val descripiton = binding.txtTaskDescription.editText?.text.toString()
+        val important = binding.importanTaskSwitch.isChecked
+
+
+        //TODO - IMPLEMENTAR CAPUTURA DE DADOS DOS PICKERS DE DATA E HORA
+
+
+
+
+
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
-
-
-
 
 }

@@ -1,7 +1,9 @@
 package com.edsonjr.mytasks.Model
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
@@ -10,8 +12,10 @@ import java.io.Serializable
 data class Task(
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     @ColumnInfo(name = "id")
     val id: Int,
+
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -31,4 +35,7 @@ data class Task(
 
     @ColumnInfo(name = "completed")
     val completed: Boolean = false
+
+
+
 ): Serializable
