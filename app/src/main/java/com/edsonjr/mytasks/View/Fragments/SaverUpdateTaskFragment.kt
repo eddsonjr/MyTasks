@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
+import com.edsonjr.mytasks.Extensions.format
 import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.Repository.TaskRepository
@@ -15,6 +16,10 @@ import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
 import com.edsonjr.mytasks.databinding.FragmentListTasksBinding
 import com.edsonjr.mytasks.databinding.FragmentSaverUpdateTaskBinding
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
+import java.util.*
 
 
 class SaverUpdateTaskFragment : Fragment() {
@@ -24,6 +29,11 @@ class SaverUpdateTaskFragment : Fragment() {
     private var _binding: FragmentSaverUpdateTaskBinding? = null
     private val binding get() = _binding!!
     private var isUpdatingTask: Boolean = false //serve para informar se ira salvar ou atualizar
+
+
+    //hora e data da task
+    var hour: String? = null
+    var date: String? = null
 
 
 
@@ -43,8 +53,9 @@ class SaverUpdateTaskFragment : Fragment() {
         val view = binding.root
 
 
-        //configurando os eventos de click
+        //configurando os eventos de click e listeners
         configureButtonsListeners()
+        initDateHourListeners()
 
 
         //listener do fragment manager, responsavel por verificar se o usuario selecionou
@@ -107,6 +118,7 @@ class SaverUpdateTaskFragment : Fragment() {
 
         //caso o usuario click no botao de salvar (ou update), disparar acao de update ou save
         binding.btnCriarTarefa.setOnClickListener {
+            captureUserInputAndReturnTask()
 
         }
 
@@ -129,8 +141,8 @@ class SaverUpdateTaskFragment : Fragment() {
         val descripiton = binding.txtTaskDescription.editText?.text.toString()
         val important = binding.importanTaskSwitch.isChecked
 
-
-        //TODO - IMPLEMENTAR CAPUTURA DE DADOS DOS PICKERS DE DATA E HORA
+        task = Task(title,descripiton,date,hour,important,false)
+        Log.d(TAG,"Task com dados de UI: $task")
 
     }
 
@@ -139,5 +151,42 @@ class SaverUpdateTaskFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+
+    private fun initDateHourListeners() {
+        val fragmentManager = activity?.supportFragmentManager
+        //evento de click pra hora
+        binding.txtHourTask.editText?.setOnClickListener {
+            val timePicker = MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .build()
+            timePicker.addOnPositiveButtonClickListener{
+                val minute =  if(timePicker.minute in 0..9) "0${timePicker.minute}" else timePicker.minute
+                val hora =  if(timePicker.hour in 0..9) "0${timePicker.hour}" else timePicker.hour
+                hour = "$hora:$minute"
+            }
+
+            timePicker.show(fragmentManager!!,null)
+        }
+
+
+        //evento de click para data
+        binding.txtDateTask.editText?.setOnClickListener {
+            val datePicker =  MaterialDatePicker.Builder.datePicker().build()
+            datePicker.addOnPositiveButtonClickListener {
+                //usuario clicando no botao de ok do date picker
+                //retornando o timestamp
+
+                val timeZone = TimeZone.getDefault()
+                val offset = timeZone.getOffset(Date().time) * -1
+
+                //trabalhando com extensions
+                date = Date(it + offset).format()
+            }
+            datePicker.show(fragmentManager!!,null)
+        }
+    }
+
 
 }

@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         initViewModel()
         startTaskListFragment()
-        testSaveTask()
 
     }
 
