@@ -12,7 +12,7 @@ interface TaskDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: Task): Long
 
-    @Update
+    @Update()
     suspend fun updateTask(task: Task)
 
     @Delete

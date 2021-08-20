@@ -32,9 +32,7 @@ class SaverUpdateTaskFragment : Fragment() {
     private var isUpdatingTask: Boolean = false //serve para informar se ira salvar ou atualizar
 
 
-    //hora e data da task
-    var hour: String? = null
-    var date: String? = null
+    var taskID: Long = 0
 
 
 
@@ -55,8 +53,9 @@ class SaverUpdateTaskFragment : Fragment() {
 
 
         //configurando os eventos de click e listeners
-        configureButtonsListeners()
         initDateHourListeners()
+        configureButtonsListeners()
+
 
 
         //listener do fragment manager, responsavel por verificar se o usuario selecionou
@@ -66,6 +65,7 @@ class SaverUpdateTaskFragment : Fragment() {
             Log.d(TAG,"Task recebida: ${task.toString()}")
             configUIToUpdateTask(task as Task)
             this.isUpdatingTask = true
+            this.taskID = task.id
 
         }
 
@@ -149,7 +149,7 @@ class SaverUpdateTaskFragment : Fragment() {
         val descripiton = binding.txtTaskDescription?.text.toString()
         val important = binding.importanTaskSwitch.isChecked
 
-        task = Task(title,descripiton,date,hour,important,false)
+        task = Task(title,descripiton,binding.txtDateTask.text,binding.txtHourTask.text,important,false,taskID)
         Log.d(TAG,"Task com dados de UI: $task")
         return task
 
@@ -173,11 +173,11 @@ class SaverUpdateTaskFragment : Fragment() {
             timePicker.addOnPositiveButtonClickListener{
                 val minute =  if(timePicker.minute in 0..9) "0${timePicker.minute}" else timePicker.minute
                 val hora =  if(timePicker.hour in 0..9) "0${timePicker.hour}" else timePicker.hour
-                hour = "$hora:$minute"
+                val hour = "$hora:$minute"
                 binding.txtHourTask.text = hour!!
             }
 
-            timePicker.show(fragmentManager!!,null)
+            timePicker.show(fragmentManager!!,"HOUR_PICKER_TAG")
         }
 
 
@@ -192,10 +192,10 @@ class SaverUpdateTaskFragment : Fragment() {
                 val offset = timeZone.getOffset(Date().time) * -1
 
                 //trabalhando com extensions
-                date = Date(it + offset).format()
+                val date = Date(it + offset).format()
                 binding.txtDateTask.text = date!!
             }
-            datePicker.show(fragmentManager!!,null)
+            datePicker.show(fragmentManager!!,"DATE_PICKER_TAG")
         }
     }
 
