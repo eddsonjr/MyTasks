@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     //somente para testes
     private fun testSaveTask() {
-        this.viewModel?.insertTask(Task(9,"TASK COM TUDO","DESCRIPTION","22/22/22","12:45",true,false))
+        this.viewModel?.insertTask(Task("TASK ALTERACAO_PRIMARY_KEY","alteracao para primary key separada","22/22/22","12:45",true,false))
 
     }
 

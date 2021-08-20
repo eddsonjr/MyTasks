@@ -11,11 +11,6 @@ import java.io.Serializable
 @Entity(tableName = "task_table")
 data class Task(
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "id")
-    val id: Long,
-
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -34,8 +29,16 @@ data class Task(
     val important: Boolean = false,
 
     @ColumnInfo(name = "completed")
-    val completed: Boolean = false
+    val completed: Boolean = false,
+
+    //colocando como ultimo parametro, nao necessario passar no construtor da classe
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Long = 0,
 
 
 
-): Serializable
+): Serializable{
+
+
+}
