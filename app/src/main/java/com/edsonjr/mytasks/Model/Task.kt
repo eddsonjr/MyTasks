@@ -14,7 +14,7 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Long,
 
 
     @ColumnInfo(name = "title")

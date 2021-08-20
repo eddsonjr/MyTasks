@@ -26,4 +26,8 @@ interface TaskDAO {
     fun getAllTasks(): LiveData<List<Task>>
 
 
+    @Query("SELECT id FROM task_table order by ROWID DESC limit 1")
+    fun getLastTaskID(): Long
+
+
 }
