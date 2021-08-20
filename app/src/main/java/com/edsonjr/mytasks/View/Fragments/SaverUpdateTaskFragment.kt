@@ -9,6 +9,7 @@ import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
 import com.edsonjr.mytasks.Extensions.format
+import com.edsonjr.mytasks.Extensions.text
 import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.Repository.TaskRepository
@@ -115,11 +116,18 @@ class SaverUpdateTaskFragment : Fragment() {
             backToListTaskFragment()
         }
 
-
         //caso o usuario click no botao de salvar (ou update), disparar acao de update ou save
         binding.btnCriarTarefa.setOnClickListener {
-            captureUserInputAndReturnTask()
+            val task = captureUserInputAndReturnTask()
 
+            if(!isUpdatingTask){
+                Log.d(TAG,"Adicionando uma nova task no banco...")
+                viewModel.insertTask(task)
+            }else{
+                Log.d(TAG,"Atualizando a task ${task.title}...")
+                viewModel.updateTask(task)
+            }
+            backToListTaskFragment() //voltando para tela de listagem de tasks
         }
 
     }
@@ -135,14 +143,15 @@ class SaverUpdateTaskFragment : Fragment() {
 
     //captura os dados dos componentes de UI e retorna um objeto do tipo Task, que pode ser
     //atualizado ou adicionado
-    private fun captureUserInputAndReturnTask() {
+    private fun captureUserInputAndReturnTask(): Task {
         var task: Task? = null
-        val title = binding.txtTaskTitle.editText?.text.toString()
-        val descripiton = binding.txtTaskDescription.editText?.text.toString()
+        val title = binding.txtTaskTitle?.text.toString()
+        val descripiton = binding.txtTaskDescription?.text.toString()
         val important = binding.importanTaskSwitch.isChecked
 
         task = Task(title,descripiton,date,hour,important,false)
         Log.d(TAG,"Task com dados de UI: $task")
+        return task
 
     }
 
@@ -165,6 +174,7 @@ class SaverUpdateTaskFragment : Fragment() {
                 val minute =  if(timePicker.minute in 0..9) "0${timePicker.minute}" else timePicker.minute
                 val hora =  if(timePicker.hour in 0..9) "0${timePicker.hour}" else timePicker.hour
                 hour = "$hora:$minute"
+                binding.txtHourTask.text = hour!!
             }
 
             timePicker.show(fragmentManager!!,null)
@@ -183,10 +193,10 @@ class SaverUpdateTaskFragment : Fragment() {
 
                 //trabalhando com extensions
                 date = Date(it + offset).format()
+                binding.txtDateTask.text = date!!
             }
             datePicker.show(fragmentManager!!,null)
         }
     }
-
 
 }
