@@ -14,6 +14,8 @@ import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.View.Adapter.RecyclerViewAdapter
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
+import com.edsonjr.mytasks.databinding.FragmentListTasksBinding
+import com.edsonjr.mytasks.databinding.FragmentSaverUpdateTaskBinding
 
 
 class ListTasksFragment : Fragment() {
@@ -22,6 +24,9 @@ class ListTasksFragment : Fragment() {
     private var taskList: List<Task>? = null //lista de tasks vindas do banco
     private val viewModel: TaskViewModel by activityViewModels() //view model compartilhado
     private var recyclerView: RecyclerView? = null //recyclerview de tasks
+
+    private var _binding: FragmentListTasksBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +39,11 @@ class ListTasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_list_tasks, container, false)
+        _binding = FragmentListTasksBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        addNewTaskClickListener()
+
         return view
     }
 
@@ -58,7 +67,7 @@ class ListTasksFragment : Fragment() {
 
     //este metodo e resposnavel por inicializar a recyclerview
     private fun initRecyclerView(view: View,tasks: List<Task>) {
-        recyclerView = view.findViewById(R.id.taskListRecyclerview) as RecyclerView
+        recyclerView = binding.taskListRecyclerview
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
         recyclerView!!.adapter = RecyclerViewAdapter(tasks,
             {selectedItem:Task->itemClickListener(selectedItem)})
@@ -71,11 +80,28 @@ class ListTasksFragment : Fragment() {
 
         val fragmentManager = activity?.supportFragmentManager
         fragmentManager?.setFragmentResult("task_update", bundleOf("taskToUpdate" to task))
+        loadAddUpdateTaskFragment(fragmentManager)
+    }
 
+
+
+    //este metodo serve para chamar o fragment  de adicionar / atualizar  tasks
+    private fun loadAddUpdateTaskFragment(fragmentManager: FragmentManager?) {
         fragmentManager?.commit {
             replace<SaverUpdateTaskFragment>(R.id.fragmentContainer)
             setReorderingAllowed(false)
             addToBackStack(null)
+        }
+
+
+    }
+
+
+    //Metodo para adiconar evento de click no FAB - para adicionar uma task nova
+    private fun addNewTaskClickListener() {
+        binding.addTaskFloatbutton.setOnClickListener {
+            val fragmentManager = activity?.supportFragmentManager
+            loadAddUpdateTaskFragment(fragmentManager)
         }
     }
 

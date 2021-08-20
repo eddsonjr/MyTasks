@@ -44,7 +44,7 @@ class SaverUpdateTaskFragment : Fragment() {
 
 
         //configurando os eventos de click
-        configureSaveUpdateButtons()
+        configureButtonsListeners()
 
 
         //listener do fragment manager, responsavel por verificar se o usuario selecionou
@@ -97,7 +97,7 @@ class SaverUpdateTaskFragment : Fragment() {
 
     //metodo que serve para trabalhar com os eventos de click dos botoes de salvar/atualizar
     //e cancelar
-    private fun configureSaveUpdateButtons() {
+    private fun configureButtonsListeners() {
 
         //caso o usuario click em cancelar, retornar para tela anterior
         binding.btnCancelar.setOnClickListener {
@@ -131,10 +131,6 @@ class SaverUpdateTaskFragment : Fragment() {
 
 
         //TODO - IMPLEMENTAR CAPUTURA DE DADOS DOS PICKERS DE DATA E HORA
-
-
-
-
 
     }
 
