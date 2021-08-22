@@ -70,7 +70,8 @@ class ListTasksFragment : Fragment() {
     private fun initRecyclerView(view: View,tasks: List<Task>) {
         recyclerView = binding.taskListRecyclerview
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
-        recyclerView!!.adapter = RecyclerViewAdapter(tasks)
+        recyclerView!!.adapter = adapter
+        adapter.updateRecyclerView(tasks)
 
     }
 
