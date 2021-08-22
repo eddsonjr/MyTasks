@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.opengl.Visibility
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.edsonjr.mytasks.Model.Task
 import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
+import com.edsonjr.mytasks.databinding.ItemTaskRecyclerviewBinding
 
 class RecyclerViewAdapter(private val taskList: List<Task>,private val clickListener:(Task)->Unit):
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -23,17 +25,14 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
     var listenerDelete: (Task) -> Unit = {}
 
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
-        var important_txt = view.findViewById<TextView>(R.id.txt_task_important_item_recycler)
-        var task_title = view.findViewById<TextView>(R.id.txt_taskTitle_item_recycler)
-
+    class ViewHolder(var binding: ItemTaskRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Task,clickListener:(Task)->Unit){
 
-            this.task_title.text = item.title
+            binding.txtTaskTitleItemRecycler.text = item.title
 
-            if(item.important == true) important_txt.visibility = View.VISIBLE else View.GONE
+            if(item.important) binding.txtTaskImportantItemRecycler.visibility = View.VISIBLE else View.GONE
+
 
             //acao de click na celula da recyclerview
             itemView.setOnClickListener {
@@ -43,8 +42,9 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task_recyclerview,parent,false)
-        return ViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemTaskRecyclerviewBinding.inflate(layoutInflater,parent,false)
+        return ViewHolder(binding)
 
     }
 
