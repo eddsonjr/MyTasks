@@ -18,12 +18,20 @@ import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 import com.edsonjr.mytasks.databinding.ItemTaskRecyclerviewBinding
 
-class RecyclerViewAdapter(private val taskList: List<Task>):
+class RecyclerViewAdapter():
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
+    private var taskList: List<Task>? = null
 
     var listenerEdit: (Task) -> Unit = {}
     var listenerDelete: (Task) -> Unit = {}
+
+
+    //atualiza os dados da recyclerview
+    fun updateRecyclerView(tasks: List<Task>){
+        this.taskList = tasks
+        notifyDataSetChanged()
+    }
 
 
     class ViewHolder(var binding: ItemTaskRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
@@ -67,11 +75,11 @@ class RecyclerViewAdapter(private val taskList: List<Task>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(taskList.get(position))
+        holder.bind(taskList?.get(position)!!)
 
     }
 
-    override fun getItemCount() = taskList.size
+    override fun getItemCount() = taskList?.size!!
 
 
 }

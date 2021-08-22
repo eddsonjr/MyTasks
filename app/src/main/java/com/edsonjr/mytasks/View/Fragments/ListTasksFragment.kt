@@ -21,10 +21,11 @@ import com.edsonjr.mytasks.databinding.FragmentSaverUpdateTaskBinding
 class ListTasksFragment : Fragment() {
 
     private val TAG = "[ListTaskFragment]" //para fins de debug
-    private var taskList: List<Task>? = null //lista de tasks vindas do banco
     private val viewModel: TaskViewModel by activityViewModels() //view model compartilhado
     private var recyclerView: RecyclerView? = null //recyclerview de tasks
+    private val adapter = RecyclerViewAdapter()
 
+    //para trabalhar com o binding
     private var _binding: FragmentListTasksBinding? = null
     private val binding get() = _binding!!
 
@@ -69,8 +70,7 @@ class ListTasksFragment : Fragment() {
     private fun initRecyclerView(view: View,tasks: List<Task>) {
         recyclerView = binding.taskListRecyclerview
         recyclerView!!.layoutManager = LinearLayoutManager(activity)
-        recyclerView!!.adapter = RecyclerViewAdapter(tasks,
-            {selectedItem:Task->itemClickListener(selectedItem)})
+        recyclerView!!.adapter = RecyclerViewAdapter(tasks)
 
     }
 
@@ -103,6 +103,21 @@ class ListTasksFragment : Fragment() {
             val fragmentManager = activity?.supportFragmentManager
             loadAddUpdateTaskFragment(fragmentManager)
         }
+    }
+
+
+
+    //este metodo server para inicializar todos os eventos de click listeners
+    private fun initListeners(){
+
+        //evento para o click de add new task - float button
+        binding.addTaskFloatbutton.setOnClickListener {
+            val fragmentManager = activity?.supportFragmentManager
+            loadAddUpdateTaskFragment(fragmentManager)
+        }
+
+
+
     }
 
 }
