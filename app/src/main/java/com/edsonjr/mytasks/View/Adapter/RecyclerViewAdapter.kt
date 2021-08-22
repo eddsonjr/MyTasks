@@ -8,6 +8,7 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -17,7 +18,7 @@ import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 import com.edsonjr.mytasks.databinding.ItemTaskRecyclerviewBinding
 
-class RecyclerViewAdapter(private val taskList: List<Task>,private val clickListener:(Task)->Unit):
+class RecyclerViewAdapter(private val taskList: List<Task>):
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
 
@@ -27,17 +28,34 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
 
     class ViewHolder(var binding: ItemTaskRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Task,clickListener:(Task)->Unit){
+        fun bind(item: Task){
 
+            //itens visuais de informacao
             binding.txtTaskTitleItemRecycler.text = item.title
-
             if(item.important) binding.txtTaskImportantItemRecycler.visibility = View.VISIBLE else View.GONE
 
-
-            //acao de click na celula da recyclerview
-            itemView.setOnClickListener {
-                clickListener(item)
+            //menu de pop da celula com as opcoes de editar e remover
+            binding.itemRecyclerViewMore.setOnClickListener {
+                showMenuPopUp(item)
             }
+
+        }
+
+
+        //infla o pop menu de more actions da recyclerview
+        private fun showMenuPopUp(task: Task) {
+            val itemMoreActions = binding.itemRecyclerViewMore
+            val popMenu = PopupMenu(itemMoreActions.context,itemMoreActions)
+            popMenu.menuInflater.inflate(R.menu.item_recyclerview_menu,popMenu.menu)
+            popMenu.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.action_edit -> {}
+                    R.id.action_delete -> {}
+                }
+
+                return@setOnMenuItemClickListener true
+            }
+            popMenu.show()
         }
     }
 
@@ -49,7 +67,7 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(taskList.get(position),clickListener)
+        holder.bind(taskList.get(position))
 
     }
 
