@@ -19,22 +19,21 @@ class RecyclerViewAdapter(private val taskList: List<Task>,private val clickList
     RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
 
+    var listenerEdit: (Task) -> Unit = {}
+    var listenerDelete: (Task) -> Unit = {}
+
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         var important_txt = view.findViewById<TextView>(R.id.txt_task_important_item_recycler)
         var task_title = view.findViewById<TextView>(R.id.txt_taskTitle_item_recycler)
-        var task_date = view.findViewById<TextView>(R.id.txt_dateTask_item_recycler)
-        var task_hour = view.findViewById<TextView>(R.id.txt_taskHour_item_recycler)
+
 
         fun bind(item: Task,clickListener:(Task)->Unit){
 
             this.task_title.text = item.title
 
-            if(item.important) important_txt.visibility = View.VISIBLE else View.GONE
-            if(item.date.isNullOrEmpty()) task_date.text = ""  else task_date.text = item.date
-            if(item.hour.isNullOrEmpty()) task_hour.text = "" else task_hour.text = item.hour
-
+            if(item.important == true) important_txt.visibility = View.VISIBLE else View.GONE
 
             //acao de click na celula da recyclerview
             itemView.setOnClickListener {
