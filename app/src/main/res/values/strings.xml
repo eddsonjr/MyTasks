@@ -15,4 +15,8 @@
     <string name="switch_important">Tarefa importante (opcional)</string>
 
 
+    <!-- Textos dos menus de recyclerView de listagem de tasks-->
+    <string name="menu_recycler_edit">Editar</string>
+    <string name="menu_recycler_delete">Remover</string>
+
 </resources>
