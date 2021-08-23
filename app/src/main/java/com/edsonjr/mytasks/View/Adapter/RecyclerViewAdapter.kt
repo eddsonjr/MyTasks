@@ -2,6 +2,7 @@ package com.edsonjr.mytasks.View.Adapter
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Paint
 import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Layout
@@ -40,16 +41,24 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
         fun bind(item: Task){
 
-            //itens visuais de informacao
-            binding.txtTaskTitleItemRecycler.text = item.title
+            binding.txtTaskTitleItemRecycler.text = item.title //titulo da tarefa
+
+            //se a tarefa estiver completa, tachar o texto de tittulo da tarefa
+            if(item.completed){
+                binding.txtTaskTitleItemRecycler.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            }
+
             if(item.important) binding.txtTaskImportantItemRecycler.visibility = View.VISIBLE else View.GONE
 
-            //menu de pop da celula com as opcoes de editar e remover
+
+            //Mark - Click listener do menu
+            //menu de pop da celula com as opcoes de editar, remover e finalizar tarefa
             binding.itemRecyclerViewMore.setOnClickListener {
                 showMenuPopUp(item)
             }
 
         }
+
 
 
         //infla o pop menu de more actions da recyclerview
