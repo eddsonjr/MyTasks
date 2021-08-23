@@ -29,7 +29,7 @@ data class Task(
     val important: Boolean = false,
 
     @ColumnInfo(name = "completed")
-    val completed: Boolean = false,
+    var completed: Boolean = false,
 
     //colocando como ultimo parametro, nao necessario passar no construtor da classe
     @PrimaryKey(autoGenerate = true)

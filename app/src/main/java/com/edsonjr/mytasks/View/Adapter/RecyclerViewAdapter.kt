@@ -30,6 +30,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
     //atualiza os dados da recyclerview
     fun updateRecyclerView(tasks: List<Task>){
+        this.taskList = null
         this.taskList = tasks
         notifyDataSetChanged()
     }

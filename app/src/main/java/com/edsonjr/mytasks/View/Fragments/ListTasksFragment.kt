@@ -121,10 +121,15 @@ class ListTasksFragment : Fragment() {
             adapter.updateRecyclerView(newTaskList!!)
         }
 
+
+        //FINALIZANDO uma task - evento de click do popmenu dos itens da recycleview
         adapter.listenerTaskDone = {
             Log.d(TAG,"FINALIZANDO a tarefa:  ${it.id} -  ${it.title} - STATUS: ${it.completed}")
-
-
+            var task = it
+            task.completed = true
+            viewModel.updateTask(task)
+            val newTaskList = viewModel.taskList.value
+            adapter.updateRecyclerView(newTaskList!!)
         }
     }
 
