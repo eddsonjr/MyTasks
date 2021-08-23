@@ -61,6 +61,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
                 when(it.itemId){
                     R.id.action_edit -> listenerEdit(task)
                     R.id.action_delete -> listenerDelete(task)
+                    R.id.action_TaskDone -> listenerTaskDone(task)
                 }
 
                 return@setOnMenuItemClickListener true
