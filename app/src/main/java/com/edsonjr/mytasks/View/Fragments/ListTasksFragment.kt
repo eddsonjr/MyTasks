@@ -116,12 +116,10 @@ class ListTasksFragment : Fragment() {
         //REMOVENDO  uma task - evento de click do popmenu dos itens da recyclerview
         adapter.listenerDelete = {
             Log.d(TAG,"REMOVENDO a tarefa:  ${it.id} -  ${it.title} ")
+            viewModel.delete(it)
+            val newTaskList = viewModel.taskList.value
+            adapter.updateRecyclerView(newTaskList!!)
         }
-
-
-
-
-
     }
 
 }
