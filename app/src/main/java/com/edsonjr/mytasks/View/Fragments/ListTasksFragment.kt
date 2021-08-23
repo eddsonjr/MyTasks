@@ -120,6 +120,12 @@ class ListTasksFragment : Fragment() {
             val newTaskList = viewModel.taskList.value
             adapter.updateRecyclerView(newTaskList!!)
         }
+
+        adapter.listenerTaskDone = {
+            Log.d(TAG,"FINALIZANDO a tarefa:  ${it.id} -  ${it.title} - STATUS: ${it.completed}")
+
+
+        }
     }
 
 }

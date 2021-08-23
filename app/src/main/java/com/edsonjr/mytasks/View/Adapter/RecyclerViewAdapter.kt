@@ -25,6 +25,7 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
 
     var listenerEdit: (Task) -> Unit = {}
     var listenerDelete: (Task) -> Unit = {}
+    var listenerTaskDone: (Task) -> Unit = {}
 
 
     //atualiza os dados da recyclerview
