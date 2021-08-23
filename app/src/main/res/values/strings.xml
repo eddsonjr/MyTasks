@@ -18,5 +18,6 @@
     <!-- Textos dos menus de recyclerView de listagem de tasks-->
     <string name="menu_recycler_edit">Editar</string>
     <string name="menu_recycler_delete">Remover</string>
+    <string name="menu_recycler_taskDone">Finalizar Tarefa</string>
 
 </resources>
