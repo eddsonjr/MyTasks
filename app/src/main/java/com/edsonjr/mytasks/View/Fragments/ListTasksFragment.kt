@@ -43,7 +43,7 @@ class ListTasksFragment : Fragment() {
         _binding = FragmentListTasksBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        addNewTaskClickListener()
+        initListeners()
 
         return view
     }
@@ -57,7 +57,8 @@ class ListTasksFragment : Fragment() {
     }
 
 
-    //este metodo e responsavel por configurar o observer do viewmodel
+    //este metodo e responsavel por configurar o observer do viewmodel e solicitar a inicializacao
+    //da recyclerview passando tambem os dados de lista de tasks para o adapter
     private fun taskListVMObserver(view: View){
         viewModel?.taskList?.observe(viewLifecycleOwner, Observer { tasks ->
             Log.d(TAG,"Numero de tasks do banco: ${tasks.size}")
@@ -76,15 +77,6 @@ class ListTasksFragment : Fragment() {
     }
 
 
-    //metodo que ira executar o evento de click da celula da recycleview
-    private fun itemClickListener(task: Task){
-
-        val fragmentManager = activity?.supportFragmentManager
-        fragmentManager?.setFragmentResult("task_update", bundleOf("taskToUpdate" to task))
-        loadAddUpdateTaskFragment(fragmentManager)
-    }
-
-
 
     //este metodo serve para chamar o fragment  de adicionar / atualizar  tasks
     private fun loadAddUpdateTaskFragment(fragmentManager: FragmentManager?) {
@@ -98,24 +90,35 @@ class ListTasksFragment : Fragment() {
     }
 
 
-    //Metodo para adiconar evento de click no FAB - para adicionar uma task nova
-    private fun addNewTaskClickListener() {
-        binding.addTaskFloatbutton.setOnClickListener {
-            val fragmentManager = activity?.supportFragmentManager
-            loadAddUpdateTaskFragment(fragmentManager)
-        }
-    }
-
-
 
     //este metodo server para inicializar todos os eventos de click listeners
     private fun initListeners(){
 
+        val fragmentManager = activity?.supportFragmentManager
+
         //evento para o click de add new task - float button
+        //Metodo para adiconar evento de click no FAB - para adicionar uma task nova
         binding.addTaskFloatbutton.setOnClickListener {
             val fragmentManager = activity?.supportFragmentManager
             loadAddUpdateTaskFragment(fragmentManager)
         }
+
+        //Mark: Os eventos abaixo dizem respeito ao menu more dos itens da recyclerview
+
+        //EDITANDO uma task - evento de click do popmenu dos itens da recyclerview
+        adapter.listenerEdit = {
+            Log.d(TAG,"EDITANDO a tarefa: ${it.id} -  ${it.title} ")
+            fragmentManager?.setFragmentResult("task_update", bundleOf("taskToUpdate" to it))
+            loadAddUpdateTaskFragment(fragmentManager)
+        }
+
+
+        //REMOVENDO  uma task - evento de click do popmenu dos itens da recyclerview
+        adapter.listenerDelete = {
+            Log.d(TAG,"REMOVENDO a tarefa:  ${it.id} -  ${it.title} ")
+        }
+
+
 
 
 

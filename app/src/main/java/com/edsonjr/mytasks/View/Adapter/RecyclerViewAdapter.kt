@@ -18,10 +18,10 @@ import com.edsonjr.mytasks.R
 import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 import com.edsonjr.mytasks.databinding.ItemTaskRecyclerviewBinding
 
-class RecyclerViewAdapter():
-    RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private var taskList: List<Task>? = null
+    var context: Context? = null
 
     var listenerEdit: (Task) -> Unit = {}
     var listenerDelete: (Task) -> Unit = {}
@@ -34,7 +34,7 @@ class RecyclerViewAdapter():
     }
 
 
-    class ViewHolder(var binding: ItemTaskRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(var binding: ItemTaskRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Task){
 
@@ -57,8 +57,8 @@ class RecyclerViewAdapter():
             popMenu.menuInflater.inflate(R.menu.item_recyclerview_menu,popMenu.menu)
             popMenu.setOnMenuItemClickListener {
                 when(it.itemId){
-                    R.id.action_edit -> {}
-                    R.id.action_delete -> {}
+                    R.id.action_edit -> listenerEdit(task)
+                    R.id.action_delete -> listenerDelete(task)
                 }
 
                 return@setOnMenuItemClickListener true
