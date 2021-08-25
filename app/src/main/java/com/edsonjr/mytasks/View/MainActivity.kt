@@ -3,6 +3,7 @@ package com.edsonjr.mytasks.View
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
@@ -13,21 +14,24 @@ import com.edsonjr.mytasks.View.Fragments.ListTasksFragment
 import com.edsonjr.mytasks.View.Fragments.SaverUpdateTaskFragment
 import com.edsonjr.mytasks.ViewModel.TaskViewModel
 import com.edsonjr.mytasks.ViewModel.TaskViewModelFactory
+import com.edsonjr.mytasks.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "[MainActivity]"
     private var viewModel: TaskViewModel? = null
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         initViewModel()
         startTaskListFragment()
 
     }
+
 
     //este metodo e responsavel por carregar o primeiro fragment, que mostra uma lista de
     //tasks vindas do banco de dados
@@ -50,19 +54,26 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //somente para testes
-    private fun testSaveTask() {
-        this.viewModel?.insertTask(Task("TASK ALTERACAO_PRIMARY_KEY","alteracao para primary key separada","22/22/22","12:45",true,false))
+
+
+    //esta funcao e responsavel por verificar se ha dados no banco e caso hajam, chamar o framgent
+    //caso negativo, carregar o layout indicando que nao ha tasks cadastradas ainda
+    private fun checkAndInitViews() {
+        if(viewModel?.taskList?.value?.isNotEmpty()!!){
+            Log.d(TAG,"Taks cadastradas no banco de dados. Carregando fragment com recyclerview")
+            binding.noTasksFrame.visibility = View.GONE
+            binding.fragmentContainer.visibility = View.VISIBLE
+            startTaskListFragment()
+        }else{
+            Log.d(TAG,"Sem tasks. Mostrando framelayout de tasks nao cadastradas...")
+            binding.noTasksFrame.visibility = View.VISIBLE
+            binding.fragmentContainer.visibility = View.GONE
+        }
 
     }
 
 
-    //somente para testes
-    private fun testLoadFragmentSaveUpdateTask() {
-        val saveUpdateFragment = SaverUpdateTaskFragment()
-        val fragment = supportFragmentManager.beginTransaction()
-        fragment.replace(R.id.fragmentContainer,saveUpdateFragment)
-        fragment.commit()
-    }
+
+
 
 }
