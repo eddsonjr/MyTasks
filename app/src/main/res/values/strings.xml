@@ -14,6 +14,9 @@
     <string name="btn_cancel">Cancelar</string>
     <string name="switch_important">Tarefa importante (opcional)</string>
 
+    <!-- Main Activity  -->
+    <string name="no_tasks_txt">Sem tasks cadastradas Adicione uma!</string>
+
 
     <!-- Textos dos menus de recyclerView de listagem de tasks-->
     <string name="menu_recycler_edit">Editar</string>
