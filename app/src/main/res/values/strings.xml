@@ -5,14 +5,15 @@
 
 
     <!--strings da tela de adicionar/update de tasks-->
-    <string name="hint_title_add_task">Adicione a task</string>
-    <string name="hint_date_add_task">Data (opcional)</string>
-    <string name="hint_description_task">Insira uma descrição para a task (opcional)</string>
-    <string name="hint_hour_task">Hora (Opcional)</string>
+    <string name="hint_title_add_task">Adicione a task (Obrigatório)</string>
+    <string name="hint_date_add_task">Data</string>
+    <string name="hint_description_task">Insira uma descrição para a task (Opcional)</string>
+    <string name="hint_hour_task">Hora</string>
     <string name="btn_create_newTask">Criar tarefa</string>
     <string name="btn_update_task">Atualizar Tarefa</string>
     <string name="btn_cancel">Cancelar</string>
     <string name="switch_important">Tarefa importante (opcional)</string>
+    <string name="optinal_field">Opicional</string>
 
     <!-- Main Activity  -->
     <string name="no_tasks_txt">Sem tarefas... Adicione uma!</string>

@@ -125,7 +125,7 @@ class SaverUpdateTaskFragment : Fragment() {
                 Log.d(TAG,"Adicionando uma nova task no banco...")
                 if(binding.txtTaskTitle.text.isEmpty() || binding.txtTaskTitle.text.isBlank()){
                     Log.d(TAG,"ATENCAO: Usuario precisa escrever um titulo para a tarefa")
-                    Toast.makeText(activity?.baseContext,"Atenção: Necessário informar título da tarefa",
+                    Toast.makeText(activity?.baseContext,"Atenção: Necessário informar uma task",
                     Toast.LENGTH_SHORT).show()
                 }else{
                     viewModel.insertTask(task)
