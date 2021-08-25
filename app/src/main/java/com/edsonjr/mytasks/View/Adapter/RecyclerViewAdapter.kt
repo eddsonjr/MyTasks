@@ -7,6 +7,7 @@ import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Layout
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -72,6 +73,13 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
             val itemMoreActions = binding.itemRecyclerViewMore
             val popMenu = PopupMenu(itemMoreActions.context,itemMoreActions)
             popMenu.menuInflater.inflate(R.menu.item_recyclerview_menu,popMenu.menu)
+
+            //caso a tarefa esteja completada, remover os itens de menu de finalizar e editar
+           if(task.completed){
+               popMenu.menu.removeItem(R.id.action_edit)
+               popMenu.menu.removeItem(R.id.action_TaskDone)
+           }
+
             popMenu.setOnMenuItemClickListener {
                 when(it.itemId){
                     R.id.action_edit -> listenerEdit(task)
