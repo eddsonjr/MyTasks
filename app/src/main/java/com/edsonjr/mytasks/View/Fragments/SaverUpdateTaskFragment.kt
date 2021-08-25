@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import com.edsonjr.mytasks.DataBase.TasksDatabase
@@ -122,14 +123,20 @@ class SaverUpdateTaskFragment : Fragment() {
 
             if(!isUpdatingTask){
                 Log.d(TAG,"Adicionando uma nova task no banco...")
-                viewModel.insertTask(task)
+                if(binding.txtTaskTitle.text.isEmpty() || binding.txtTaskTitle.text.isBlank()){
+                    Log.d(TAG,"ATENCAO: Usuario precisa escrever um titulo para a tarefa")
+                    Toast.makeText(activity?.baseContext,"Atenção: Necessário informar título da tarefa",
+                    Toast.LENGTH_SHORT).show()
+                }else{
+                    viewModel.insertTask(task)
+                    backToListTaskFragment() //voltando para tela de listagem de tasks
+                }
             }else{
                 Log.d(TAG,"Atualizando a task ${task.title}...")
                 viewModel.updateTask(task)
+                backToListTaskFragment() //voltando para tela de listagem de tasks
             }
-            backToListTaskFragment() //voltando para tela de listagem de tasks
         }
-
     }
 
 
