@@ -52,28 +52,4 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,factory).get(TaskViewModel::class.java)
         Log.d(TAG,"Inicializado o TaskViewModel: ${this.viewModel}")
     }
-
-
-
-
-    //esta funcao e responsavel por verificar se ha dados no banco e caso hajam, chamar o framgent
-    //caso negativo, carregar o layout indicando que nao ha tasks cadastradas ainda
-//    private fun checkAndInitViews() {
-//        if(viewModel?.taskList?.value?.isNotEmpty()!!){
-//            Log.d(TAG,"Taks cadastradas no banco de dados. Carregando fragment com recyclerview")
-//            binding.noTasksFrame.visibility = View.GONE
-//            binding.fragmentContainer.visibility = View.VISIBLE
-//            startTaskListFragment()
-//        }else{
-//            Log.d(TAG,"Sem tasks. Mostrando framelayout de tasks nao cadastradas...")
-//            binding.noTasksFrame.visibility = View.VISIBLE
-//            binding.fragmentContainer.visibility = View.GONE
-//        }
-//
-//    }
-
-
-
-
-
 }
