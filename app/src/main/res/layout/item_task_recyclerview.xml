@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Importante"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/redPrimary"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -33,10 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Nome da task"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp"
-            android:textColor="@color/redPrimary"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/txt_task_important_item_recycler"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="12dp" />
@@ -47,12 +48,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="11/11/1991  22:45"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginStart="16dp"
-            android:textColor="@color/redPrimary"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/txt_taskTitle_item_recycler"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
 
