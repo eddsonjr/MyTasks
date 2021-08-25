@@ -7,9 +7,6 @@
     tools:context=".View.Fragments.ListTasksFragment">
 
 
-
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/taskListRecyclerview"
         android:layout_width="match_parent"
@@ -31,6 +28,16 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add" />
 
+
+    <FrameLayout
+        android:id="@+id/noTasks_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/no_tasks_layout"/>
+
+    </FrameLayout>
 
 
 

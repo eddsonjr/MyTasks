@@ -42,7 +42,6 @@ class ListTasksFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentListTasksBinding.inflate(inflater, container, false)
         val view = binding.root
-
         initListeners()
 
         return view
@@ -62,9 +61,11 @@ class ListTasksFragment : Fragment() {
     private fun taskListVMObserver(view: View){
         viewModel?.taskList?.observe(viewLifecycleOwner, Observer { tasks ->
             Log.d(TAG,"Numero de tasks do banco: ${tasks.size}")
-            initRecyclerView(view,tasks)
+            //initRecyclerView(view,tasks)
+            checkDataAndInitVisualElements(view,tasks)
         })
     }
+
 
 
     //este metodo e resposnavel por inicializar a recyclerview
@@ -91,7 +92,7 @@ class ListTasksFragment : Fragment() {
 
 
 
-    //este metodo server para inicializar todos os eventos de click listeners
+    //este metodo server para inicializar todos os eventos de click
     private fun initListeners(){
 
         val fragmentManager = activity?.supportFragmentManager
@@ -132,5 +133,21 @@ class ListTasksFragment : Fragment() {
             adapter.updateRecyclerView(newTaskList!!)
         }
     }
+
+
+
+    //este metodo serve para verificar se ha dados no banco ou nao, confiurando a UI para
+    //tratar caso haja dados (carregando a recyclerview) ou nao (carregand layout de no_tasks)
+    private fun checkDataAndInitVisualElements(view: View,tasks: List<Task>) {
+        if (tasks.isEmpty()){
+            binding.taskListRecyclerview.visibility = View.GONE
+            binding.noTasksFrame.visibility = View.VISIBLE
+        }else{
+            binding.taskListRecyclerview.visibility = View.VISIBLE
+            binding.noTasksFrame.visibility = View.GONE
+            initRecyclerView(view,tasks)
+        }
+    }
+
 
 }
