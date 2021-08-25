@@ -4,12 +4,12 @@ MyTasks é um aplicativo de TODO List. Faça sua lista de tarefas e não perca m
 
 Android + Kotlin
 
-##Introdução 
+## Introdução 
 
 Este aplicativo foi desenvolvido para ser entregue como projeto final para o Bootcamp Santander Mobile, em parceria com DIO - Digital Innovation One. 
 Trata-se de um aplicativo de lista de tarefas, constituindo basicamente um CRUD, onde o usuário do aplicativo poderá criar uma tarefa, listar suas tarefas criadas, modificar qualquer tarefa e também indicar que aquela tarefa foi concluída ou não. 
 
-##Tecnologias e padrões usados
+## Tecnologias e padrões usados
 
 O aplicativo foi desenvolvido inteiramente em Kotlin para a plataforma Android (nativo). 
 
@@ -22,11 +22,11 @@ O aplicativo foi desenvolvido inteiramente em Kotlin para a plataforma Android (
 - Injeção básica de dependência via construtor
 - ViewBinding
 
-##Telas da aplicação
+## Telas da aplicação
 
 
 
-##Trabalhos futuros
+## Trabalhos futuros
 A fim de melhorar a aplicação e a experiência do usuário com a mesma, abaixo encontram-se algumas melhorias a serem realizadas: 
 
 - Melhorias da parte visual do aplicativo (UI/UX)
