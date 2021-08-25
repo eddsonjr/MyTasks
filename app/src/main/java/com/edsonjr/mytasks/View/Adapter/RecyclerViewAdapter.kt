@@ -42,19 +42,25 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(
         fun bind(item: Task){
 
             binding.txtTaskTitleItemRecycler.text = item.title //titulo da tarefa
+            binding.txtDateHoutTaskItemRecycler.text = "${item.date} ${item.hour}" //data e hora
 
-            //se a tarefa estiver completa, tachar o texto de tittulo da tarefa
-            if(item.completed){
-                binding.txtTaskTitleItemRecycler.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            }
-
-            if(item.important) binding.txtTaskImportantItemRecycler.visibility = View.VISIBLE else View.GONE
-
+            if(item.important)
+                binding.txtTaskImportantItemRecycler.text = "Importante"
+            else
+                binding.txtTaskImportantItemRecycler.text = ""
 
             //Mark - Click listener do menu
             //menu de pop da celula com as opcoes de editar, remover e finalizar tarefa
             binding.itemRecyclerViewMore.setOnClickListener {
                 showMenuPopUp(item)
+            }
+
+
+            //se a tarefa estiver completa, tachar o texto de tittulo da tarefa
+            if(item.completed){
+                binding.txtTaskTitleItemRecycler.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                binding.txtDateHoutTaskItemRecycler.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                binding.txtTaskImportantItemRecycler.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
 
         }
