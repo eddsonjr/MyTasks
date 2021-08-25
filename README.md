@@ -23,7 +23,11 @@ O aplicativo foi desenvolvido inteiramente em Kotlin para a plataforma Android (
 - ViewBinding
 
 ## Telas da aplicação
-
+![1](/uploads/3b61a5407f33410192eaf5c51b906142/1.png)
+![5](/uploads/8220aa253f643bfe0a094779f8a4b590/5.png)
+![4](/uploads/cbc97b08a0b9db9c4d5fb3b14ffd36e6/4.png)
+![3](/uploads/e254da0c53fc48abdcd08f91d982f9f8/3.png)
+![6](/uploads/64782785e517f00b4e84af856061f7b9/6.png)
 
 
 ## Trabalhos futuros
