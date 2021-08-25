@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/no_tasks_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_no_tasks"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:src="@drawable/ic_no_data_tasks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,9 @@
         android:layout_height="wrap_content"
         android:text="@string/no_tasks_txt"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:textSize="22sp"
         android:lines="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

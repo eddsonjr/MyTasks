@@ -15,7 +15,7 @@
     <string name="switch_important">Tarefa importante (opcional)</string>
 
     <!-- Main Activity  -->
-    <string name="no_tasks_txt">Sem tasks cadastradas Adicione uma!</string>
+    <string name="no_tasks_txt">Sem tarefas... Adicione uma!</string>
 
 
     <!-- Textos dos menus de recyclerView de listagem de tasks-->
